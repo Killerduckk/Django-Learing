@@ -1,0 +1,6 @@
+<p>{{msg}}</p>
+{%if page_type == 'forum' %}
+    <a href="{%url 'learning_logs:topic' viewer_name topic.id%}">返回</a>
+{%else% page_type == 'my_favor' %}
+    <a href="{%url 'learning_logs:my_favor' viewer_name topic.id%}">返回</a>
+{%endif%}

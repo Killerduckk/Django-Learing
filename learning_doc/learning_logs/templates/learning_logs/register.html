@@ -1,8 +1,31 @@
-<p>Please Register</p>
+<style>
+.circle {
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+}
+</style>
+<p>Please Register
 <a href="{%url 'learning_logs:login'%}">已经有账户？</a>
-<p>{{msg}}</p>
-<form action="{% url 'learning_logs:register' %}" method="post">
+</p>
+<img id="avatarPreview" src=" {{ default_avatar.image.url }} " alt="your image" style="max-width: 200px; max-height: 200px;" class="circle"/>
+<form action="{% url 'learning_logs:register' %}" method="post" enctype="multipart/form-data">
     {% csrf_token %}
     {{ form.as_p }}
     <button name="submit">register</button>
 </form>
+<script>
+    document.querySelector('#id_avatar').addEventListener('change', function(e) {
+        var file = e.target.files[0];
+        var reader = new FileReader();
+        reader.onloadend = function() {
+            document.querySelector('#avatarPreview').src = reader.result;
+        }
+        if (file) {
+            reader.readAsDataURL(file);
+        } else {
+            document.querySelector('#avatarPreview').src = "";
+        }
+    });
+</script>

@@ -1,5 +1,5 @@
+<a href="{%url 'learning_logs:topics' writer_name %}">我的文章</a><br>
 <p>欢迎来到学习笔记，亲爱的{{writer_name}}</p>
-<a href="{%url 'learning_logs:login'%}">Logout</a>
 <p>Greate a new topic</p>
 <form action="{% url 'learning_logs:new_topic' writer_name %}" method="post">
     {% csrf_token %}

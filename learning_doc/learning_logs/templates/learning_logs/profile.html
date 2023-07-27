@@ -1,0 +1,19 @@
+<p>个人信息页面</p>
+<style>
+.circle {
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+}
+</style>
+
+<img src="{{ writer.avatar.url }}" alt="Avatar" class="circle">
+<p>用户名：{{writer.name}}</p>
+<p>个人简介：{{writer.instroduction}}</p>
+<p>邮箱：{{writer.email}}</p>
+
+<a href="{%url 'learning_logs:topics' writer.name %}">我的文章</a><br>
+<a href="{%url 'learning_logs:forum' writer.name 'new'%}">学习论坛</a>
+<a href="{%url 'learning_logs:my_favor' writer.name 'new' %}">我的收藏</a><br>
+<a href="{%url 'learning_logs:login'%}">退出登录</a>
