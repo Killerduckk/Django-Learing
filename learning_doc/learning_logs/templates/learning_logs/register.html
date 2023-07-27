@@ -1,0 +1,8 @@
+<p>Please Register</p>
+<a href="{%url 'learning_logs:login'%}">已经有账户？</a>
+<p>{{msg}}</p>
+<form action="{% url 'learning_logs:register' %}" method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button name="submit">register</button>
+</form>

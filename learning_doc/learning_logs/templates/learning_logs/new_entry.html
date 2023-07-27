@@ -1,0 +1,11 @@
+<p>欢迎来到学习笔记，亲爱的{{writer_name}}</p>
+<a href="{%url 'learning_logs:login'%}">Logout</a>
+<a href="{%url 'learning_logs:topics' writer_name">Topics</a>
+<a href="{%url 'learning_logs:login'%}">Logout</a>
+<p>Topics:{{topic}}</p>
+<p>Greate a new entry</p>
+<form action="{% url 'learning_logs:new_entry' topic.writer.name topic.id %}" method='post'>
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button name="submit">add topic</button>
+</form>

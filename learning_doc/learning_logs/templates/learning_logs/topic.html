@@ -1,0 +1,17 @@
+<a href="{%url 'learning_logs:login'%}">Logout</a>
+<a href="{%url 'learning_logs:topics' writer_name %}">Topics</a>
+<p>欢迎来到学习笔记，亲爱的{{writer_name}}</p>
+<p>在这里你可以查看文章</p>
+<p>Topics:{{topic}}</p>
+<a href="{% url 'learning_logs:new_entry' writer_name topic.id %}">Add a new entry</a>
+
+<ul>
+    {%for entry in entries%}
+        <li>
+            <p>{{entry.date_added|date:'M d, Y H:i'}}</p>
+            <p>{{entry.text|linebreaks}}</p>
+        </li>
+    {% empty %}
+        <li>No entry have been added yet.</li>
+    {% endfor %}
+</ul>
