@@ -1,23 +1,21 @@
-
-
 <p>欢迎来到学习笔记，亲爱的{{viewer_name}}</p>
-<p>在这里你可以查看文章</p>
-<p>Topics:{{topic}}</p>
-
 {% if viewer_name == topic.writer.name %}
     <a href="{%url 'learning_logs:topics' viewer_name %}">我的文章</a><br>
     <a href="{%url 'learning_logs:profile' viewer_name %}">我的信息</a><br>
     <a href="{% url 'learning_logs:new_entry' viewer_name topic.id %}">Add a new entry</a>
-    <p>这篇文章已经被{{favor_num}}个人收藏</p>
+    <p>你的这篇文章已经被{{favor_num}}个人收藏</p>
+    <p>你可以查看下面文章</p>
 {% else %}
     <p>在这里你可以查看作者{{topic.writer.name}}的文章，这篇文章已经被{{favor_num}}个人收藏</p>
-{% endif %}
-
-     {% if is_favor %}
+    <a href="{%url 'learning_logs:topic_writer_profile' viewer_name topic.id %}">查看作者{{topic.writer.name}}的其他文章</a><br><br><br>
+    {% if is_favor %}
         <button name="submit"  onclick="window.location.href='{% url 'learning_logs:toggle_favorite' viewer_name topic.id 'forum' %}'">取消收藏</button>
     {% else %}
         <button name="submit"  onclick="window.location.href='{% url 'learning_logs:toggle_favorite' viewer_name topic.id 'forum' %}'">收藏</button>
     {% endif %}
+{% endif %}
+<p>Topics:{{topic}}</p>
+
 <ul>
     {%for entry in entries%}
         <li>
@@ -28,5 +26,5 @@
         <li>No entry have been added yet.</li>
     {% endfor %}
 </ul>
-<a href="{%url 'learning_logs:forum' viewer_name 'new'%}">学习论坛</a>
+<a href="{%url 'learning_logs:forum' viewer_name sort_type %}">学习论坛</a>
 <a href="{%url 'learning_logs:login'%}">退出登录</a><br>

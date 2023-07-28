@@ -11,7 +11,7 @@ urlpatterns=[
     url(r'^topics/(?P<writer_name>\w+)/$',views.topics,name='topics'),
     #TODO： :r'^$'表示空字符串
     # 不可以多级别吗？
-    url(r'^topics/(?P<viewer_name>\w+)/(?P<topic_id>\d+)/$',views.topic,name='topic'),
+    url(r'^topics/(?P<viewer_name>\w+)/(?P<topic_id>\d+)/(?P<sort_type>\w+)/$',views.topic,name='topic'),
     
     url(r'^new_entry/(?P<writer_name>\w+)/(?P<topic_id>\d+)/$',views.new_entry,name='new_entry'),
    
@@ -34,6 +34,8 @@ urlpatterns=[
     url(r'^toggle_favorite/(?P<viewer_name>\w+)/(?P<topic_id>\d+)/(?P<page_type>\w+)/$',views.toggle_favorite,name='toggle_favorite'),
 
 
-    url(r'^my_favor/(?P<viewer_name>\w+)/(?P<order_type>\w+)/$',views.my_favor,name='my_favor')
+    url(r'^my_favor/(?P<viewer_name>\w+)/(?P<order_type>\w+)/$',views.my_favor,name='my_favor'),
+
+    url(r'^topic_writer_profile/(?P<viewer_name>\w+)/(?P<topic_id>\d+)/$',views.topic_writer_profile,name='topic_writer_profile'),
 
 ]

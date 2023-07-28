@@ -1,12 +1,13 @@
 <p>欢迎来到学习笔记，亲爱的{{writer_name}}</p>
 <a href="{% url 'learning_logs:new_topic' writer_name %}">添加新Topic:</a><br>
 <a href="{%url 'learning_logs:profile' writer_name %}">我的信息</a><br>
+<a href="{%url 'learning_logs:forum' writer_name 'new'%}">学习论坛</a><br>
 <a href="{%url 'learning_logs:login'%}">退出登录</a><br>
 <p>Topics:</p>
 
 <ul>
     {%for topic in topics%}
-        <li> <a href="{% url 'learning_logs:topic'  writer_name topic.id %}">{{topic}}</a>
+        <li> <a href="{% url 'learning_logs:topic'  writer_name topic.id 'new'%}">{{topic}}</a>
         </li>
     {% empty %}
         <li>No topics have been added yet.</li>

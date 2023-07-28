@@ -15,14 +15,14 @@
 </head>
 <body>
   <p>这里是{{viewer_name}}收藏的文章</p>
-  <a href="{% url 'learning_logs:forum'  viewer_name 'hot' %}">按照热度查看</a><br>
-  <a href="{% url 'learning_logs:forum'  viewer_name 'new' %}">按照日期查看 </a><br>
-  <a href="{% url 'learning_logs:forum'  viewer_name 'favorite' %}">按照受喜欢程度查看 </a><br>
+  <a href="{% url 'learning_logs:my_favor'  viewer_name 'hot' %}">按照热度查看</a><br>
+  <a href="{% url 'learning_logs:my_favor'  viewer_name 'new' %}">按照日期查看 </a><br>
+  <a href="{% url 'learning_logs:my_favor'  viewer_name 'favorite' %}">按照受喜欢程度查看 </a><br>
   <ul>
       {%for topic in topics%}
           <li>
             <img src="{{ topic.writer.avatar.url }}" alt="Avatar" class="circle">
-            <a href="{% url 'learning_logs:topic'  viewer_name topic.id  %}" style="font-size: 40px;">{{topic}} </a>
+            <a href="{% url 'learning_logs:topic'  viewer_name topic.id 'new' %}" style="font-size: 40px;">{{topic}} </a>
               <p>来自于{{topic.writer.name}},上传日期{{topic.date_added}}</p>
             <button name="submit"  onclick="window.location.href='{% url 'learning_logs:toggle_favorite' viewer_name topic.id 'my_favor' %}'">取消收藏</button>
           </li>

@@ -18,12 +18,11 @@
   <a href="{% url 'learning_logs:forum'  viewer_name 'hot' %}">按照热度查看</a><br>
   <a href="{% url 'learning_logs:forum'  viewer_name 'new' %}">按照日期查看 </a><br>
   <a href="{% url 'learning_logs:forum'  viewer_name 'favorite' %}">按照受喜欢程度查看 </a><br>
-  <p>欢迎来到学习笔记论坛板块，亲爱的{{viewer_name}}</p>
   <ul>
       {%for topic in topics%}
           <li>
             <img src="{{ topic.writer.avatar.url }}" alt="Avatar" class="circle">
-            <a href="{% url 'learning_logs:topic'  viewer_name topic.id  %}" style="font-size: 40px;">{{topic}} </a>
+            <a href="{% url 'learning_logs:topic'  viewer_name topic.id order_type %}" style="font-size: 40px;">{{topic}} </a>
               <p>来自于{{topic.writer.name}},上传日期{{topic.date_added}}</p>
 
           </li>

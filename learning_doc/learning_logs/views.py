@@ -26,7 +26,7 @@ def topics(request,writer_name):
     context={'writer_name':writer_name,'topics':topics}   
     return render(request,'learning_logs/topics.html',context)
 
-def topic(request,viewer_name,topic_id):
+def topic(request,viewer_name,topic_id,sort_type):
     topic = Topic.objects.get(id=topic_id)
     viewer=Writer.objects.filter(name=viewer_name).first()
     entries=topic.entries.order_by('-date_added')
@@ -35,7 +35,8 @@ def topic(request,viewer_name,topic_id):
     is_favor=True
     if favor is None:
         is_favor=False
-    context={'viewer_name':viewer_name,'topic':topic,'entries':entries,"is_favor":is_favor,"favor_num":favor_num}
+    context={'viewer_name':viewer_name,'topic':topic,'entries':entries,"is_favor":is_favor,
+             "favor_num":favor_num,"sort_type":sort_type}
     print("viewer_name:"+viewer_name)
     return render(request,'learning_logs/topic.html',context)
 
@@ -51,7 +52,7 @@ def new_topic(request,writer_name):
             writer=Writer.objects.filter(name=writer_name).first()
             data.writer=writer
             data.save()
-            return HttpResponseRedirect(reverse('learning_logs:topic',args=[writer_name,data.id]))     
+            return HttpResponseRedirect(reverse('learning_logs:topic',args=[writer_name,data.id,'new']))
     context={'form':form , 'writer_name':writer_name}
     return render(request,'learning_logs/new_topic.html',context)
 
@@ -134,7 +135,7 @@ def new_entry(request,writer_name,topic_id):
             new_entry=form.save(commit=False)
             new_entry.topic=Topic.objects.get(id=topic_id)
             new_entry.save()
-            return HttpResponseRedirect(reverse('learning_logs:topic',args=[writer_name,topic_id]))
+            return HttpResponseRedirect(reverse('learning_logs:topic',args=[writer_name,topic_id,'new']))
     print("In func new_entry topic_id:"+str(topic_id))
     context={'form':form,'topic':topic,'writer_name':writer_name,}
     return render(request,'learning_logs/new_entry.html',context)
@@ -143,7 +144,9 @@ def forum(request,viewer_name,order_type='new'):
     me=Writer.objects.filter(name=viewer_name).first()
     print("me:"+str(me))
     sorted_topics=Topic.objects.exclude(writer=me).order_by('-date_added')
-
+    for topic in sorted_topics:
+        if "这是我们为你准备的使用说明" in topic.text:
+            sorted_topics=sorted_topics.exclude(id=topic.id)
     if order_type=='hot':
         sorted_topics=sorted_topics.annotate(num_entries=Count('entries')).order_by('-num_entries')
     elif order_type=='favorite':
@@ -182,6 +185,12 @@ def toggle_favorite(request,viewer_name,topic_id,page_type='forum'):
     context={'viewer_name':viewer_name,'topic':topic,'msg':msg,'page_type':page_type}
     return render(request,'learning_logs/favor_msg.html',context)
 
+def topic_writer_profile(request,viewer_name,topic_id):
+    topic=Topic.objects.get(id=topic_id)
+    writer=topic.writer
+    topics=writer.topics.all()
+    context={'viewer_name':viewer_name,'writer':writer,'topics':topics}
+    return render(request,'learning_logs/topic_writer_profile.html',context)
 
 
 

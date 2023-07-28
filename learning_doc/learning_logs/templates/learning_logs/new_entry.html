@@ -1,9 +1,9 @@
 <p>欢迎来到学习笔记，亲爱的{{writer_name}}</p>
-<a href="{% url 'learning_logs:topic'  writer_name topic.id %}">返回Topic:{{topic}}</a>
+<a href="{% url 'learning_logs:topic'  writer_name topic.id 'new' %}">返回Topic:{{topic}}</a>
 <p>Topics:{{topic}}</p>
 <p>Greate a new entry</p>
 <form action="{% url 'learning_logs:new_entry' topic.writer.name topic.id %}" method='post'>
     {% csrf_token %}
     {{ form.as_p }}
-    <button name="submit">add topic</button>
+    <button name="submit">add entry</button>
 </form>
